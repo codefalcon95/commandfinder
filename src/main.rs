@@ -5,17 +5,15 @@ use std::env;
 
 fn main() {
     let args: Vec<String> = env::args().collect();
-    if args.len() < 2 {
+    if args.len() < 3 {
         println!("Not enough arguments");
         return;
     }
 
-    println!("Command: {}", args[1]);
-    let command_finder: CommandFinder = CommandFinder::new(&args[1]);
-    println!("{}", command_finder.command);
-}
+    let command = &args[1];
+    let command_history_file = &args[2];
 
-// take a command from the user
-// open the command line session history
-// find every line that has the command
-// return that command
+    let command_finder: CommandFinder = CommandFinder::new(command, command_history_file);
+
+    command_finder.find_command_in_file();
+}
